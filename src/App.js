@@ -26,6 +26,8 @@ import ClimateChallenge from './views/climate/ClimateChallenge';
 import SingleChallenge from './views/climate/SingleChallenge';
 import DIY from './views/diy/DIY';
 import ClimateLogout from './views/climate/ClimateLogout';
+import Story from './views/story/Story';
+import StoryDetail from './views/story/StoryDetail';
 
 function App() {
 	useEffect(() => {
@@ -88,8 +90,11 @@ function App() {
 						6k
 						{/* Games Routes */}
 						<Route path="/diy" element={<DIY />} />
+						<Route path="/story" element={<Story />} />
+						<Route path="/story/detail" element={<StoryDetail />} />
 					</Routes>
 				</div>
+				
 				<div className="top-blue-border"></div>
 				<Footer id="footer" />
 			</div>
