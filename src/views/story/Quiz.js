@@ -1,35 +1,49 @@
 import React, { useState } from 'react';
 import quizImage from './images/quiz.png';
 import resulticon from "./images/resulticon.png";
+import useStoryStore from '../../store/useStoryStore';
 
 const Quiz = () => {
-  const [showDialog, setShowDialog] = useState(false); // Control dialog visibility
-  const [loadingResult, setLoadingResult] = useState(false); // Control spinner visibility
-  const [quizCompleted, setQuizCompleted] = useState(false); // When the user completes the quiz
-  const [result, setResult] = useState(null); // To store quiz result
+  const { storyData } = useStoryStore();
+  const [showDialog, setShowDialog] = useState(false); 
+  const [loadingResult, setLoadingResult] = useState(false); 
+  const [quizCompleted, setQuizCompleted] = useState(false); 
+  const [result, setResult] = useState(null); 
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
-  const correctAnswers = { q1: 'q2', q2: 'q1', q3: 'q4' }; // Simulated correct answers
-  const [selectedAnswers, setSelectedAnswers] = useState({ q1: '', q2: '', q3: '' });
+  // Function to handle answer selection
+  const handleAnswerChange = (questionIndex, answerValue) => {
+    setSelectedAnswers(prev => ({ ...prev, [questionIndex]: answerValue }));
+  };
 
-  // Simulate quiz submission
+  // Function to handle form submission and display result
   const handleSubmit = () => {
     setShowDialog(true);
     setLoadingResult(true);
 
     setTimeout(() => {
       setLoadingResult(false);
-      setResult({ correct: 3, total: 3 }); // Simulated result
-      setQuizCompleted(true);
-    }, 3000); // Simulating a 3s delay
-  };
+      
+      // Calculate results based on correct answers
+      let correctCount = 0;
+      storyData.quiz.forEach((question, index) => {
+        if (selectedAnswers[index] === question.correct) {
+          correctCount++;
+        }
+      });
 
-  const handleAnswerChange = (question, answer) => {
-    setSelectedAnswers(prev => ({ ...prev, [question]: answer }));
+      setResult({ correct: correctCount, total: storyData.quiz.length });
+      setQuizCompleted(true);
+    }, 3000); 
   };
 
   const handleDialogClose = () => {
     setShowDialog(false);
   };
+
+  if (!storyData) {
+    return <div>No story data found. Please go back to the story page.</div>;
+  }
 
   return (
     <div>
@@ -47,106 +61,40 @@ const Quiz = () => {
             Now it's time to see how well you followed along! Answer the quick questions below to test your understanding of the story and its important lessons.
           </p>
 
-          {/* Sample Questions */}
           <div className="mt-[50px] md:mt-[96px] mb-40 space-y-6">
-            {/* Question 1 */}
-            <div className="px-4 py-8">
-              <h4 className="text-[#1A1A1A] text-[18px] md:text-[20px] leading-[28px] font-poppins font-semibold">Question 1</h4>
-              <p className="pl-4 mt-[16px] text-[#737373] text-[16px] leading-[24px] font-light">Lorem ipsum dolor sit amet consectetur?</p>
+            {storyData.quiz.map((question, index) => (
+              <div className="px-4 py-8" key={index}>
+                <h4 className="text-[#1A1A1A] text-[18px] md:text-[20px] leading-[28px] font-poppins font-semibold">Question {index + 1}</h4>
+                <p className="pl-4 mt-[16px] text-[#737373] text-[16px] leading-[24px] font-light">{question.question}</p>
 
-              <div className="mt-[20px] flex flex-wrap gap-[15px]">
-                {['q1', 'q2', 'q3', 'q4'].map(option => (
-                  <div className="flex items-center" key={option}>
-                    <input
-                      type="radio"
-                      name="q1"
-                      id={`q1-${option}`}
-                      onChange={() => handleAnswerChange('q1', option)}
-                      checked={selectedAnswers.q1 === option}
-                      className="h-[15px] w-[15px] md:h-[20px] md:w-[20px] text-[#1A1A1A] mr-[10px]"
-                    />
-                    <label
-                      htmlFor={`q1-${option}`}
-                      className={`text-[14px] md:text-[16px] ${
-                        quizCompleted && selectedAnswers.q1 === option && correctAnswers.q1 === option
-                          ? 'text-green-500'
-                          : quizCompleted && selectedAnswers.q1 === option
-                          ? 'text-red-500'
-                          : 'text-[#1A1A1A]'
-                      }`}
-                    >
-                      Option {option}
-                    </label>
-                  </div>
-                ))}
+                <div className="mt-[20px] flex flex-wrap gap-[15px]">
+                  {question.options.map((option, optionIndex) => (
+                    <div className="flex items-center" key={optionIndex}>
+                      <input
+                        type="radio"
+                        name={`question-${index}`}
+                        id={`question-${index}-option-${optionIndex}`}
+                        onChange={() => handleAnswerChange(index, option.value)}
+                        checked={selectedAnswers[index] === option.value}
+                        className="h-[15px] w-[15px] md:h-[20px] md:w-[20px] text-[#1A1A1A] mr-[10px]"
+                      />
+                      <label
+                        htmlFor={`question-${index}-option-${optionIndex}`}
+                        className={`text-[14px] md:text-[16px] ${
+                          quizCompleted && selectedAnswers[index] === option.value && question.correct === option.value
+                            ? 'text-green-500'
+                            : quizCompleted && selectedAnswers[index] === option.value
+                            ? 'text-red-500'
+                            : 'text-[#1A1A1A]'
+                        }`}
+                      >
+                        {option.label.toUpperCase()}. {option.value}
+                      </label>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            {/* Question 2 */}
-            <div className="px-4 py-8">
-              <h4 className="text-[#1A1A1A] text-[18px] md:text-[20px] leading-[28px] font-poppins font-semibold">Question 2</h4>
-              <p className="pl-4 mt-[16px] text-[#737373] text-[16px] leading-[24px] font-light">Lorem ipsum dolor sit amet consectetur?</p>
-
-              <div className="mt-[20px] flex flex-wrap gap-[15px]">
-                {['q1', 'q2', 'q3', 'q4'].map(option => (
-                  <div className="flex items-center" key={option}>
-                    <input
-                      type="radio"
-                      name="q2"
-                      id={`q2-${option}`}
-                      onChange={() => handleAnswerChange('q2', option)}
-                      checked={selectedAnswers.q2 === option}
-                      className="h-[15px] w-[15px] md:h-[20px] md:w-[20px] text-[#1A1A1A] mr-[10px]"
-                    />
-                    <label
-                      htmlFor={`q2-${option}`}
-                      className={`text-[14px] md:text-[16px] ${
-                        quizCompleted && selectedAnswers.q2 === option && correctAnswers.q2 === option
-                          ? 'text-green-500'
-                          : quizCompleted && selectedAnswers.q2 === option
-                          ? 'text-red-500'
-                          : 'text-[#1A1A1A]'
-                      }`}
-                    >
-                      Option {option}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Question 3 */}
-            <div className="px-4 py-8">
-              <h4 className="text-[#1A1A1A] text-[18px] md:text-[20px] leading-[28px] font-poppins font-semibold">Question 3</h4>
-              <p className="pl-4 mt-[16px] text-[#737373] text-[16px] leading-[24px] font-light">Lorem ipsum dolor sit amet consectetur?</p>
-
-              <div className="mt-[20px] flex flex-wrap gap-[15px]">
-                {['q1', 'q2', 'q3', 'q4'].map(option => (
-                  <div className="flex items-center" key={option}>
-                    <input
-                      type="radio"
-                      name="q3"
-                      id={`q3-${option}`}
-                      onChange={() => handleAnswerChange('q3', option)}
-                      checked={selectedAnswers.q3 === option}
-                      className="h-[15px] w-[15px] md:h-[20px] md:w-[20px] text-[#1A1A1A] mr-[10px]"
-                    />
-                    <label
-                      htmlFor={`q3-${option}`}
-                      className={`text-[14px] md:text-[16px] ${
-                        quizCompleted && selectedAnswers.q3 === option && correctAnswers.q3 === option
-                          ? 'text-green-500'
-                          : quizCompleted && selectedAnswers.q3 === option
-                          ? 'text-red-500'
-                          : 'text-[#1A1A1A]'
-                      }`}
-                    >
-                      Option {option}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
 
             <div className="mt-[134px] flex justify-between items-center">
               {!quizCompleted ? (
@@ -156,10 +104,12 @@ const Quiz = () => {
                 >
                   Submit
                 </button>
-              ) : (<div className='rounded-lg mt-10 bg-white p-5'>
-                    <h2 className='text-[20px] leading-[30px] text-[#1A1A1A]'>Result</h2>
-                    <h2 className="text-center text-[#737373] mt-[22px] text-[16px] font-poppins font-normal">You got {result.correct} out of {result.total} questions. Great Job!</h2>
-              </div>)}
+              ) : (
+                <div className='rounded-lg mt-10 bg-white p-5'>
+                  <h2 className='text-[20px] leading-[30px] text-[#1A1A1A]'>Result</h2>
+                  <h2 className="text-center text-[#737373] mt-[22px] text-[16px] font-poppins font-normal">You got {result.correct} out of {result.total} questions. Great Job!</h2>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -171,33 +121,19 @@ const Quiz = () => {
           <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[40%]">
             {loadingResult ? (
               <>
-                    <img
-                        src={resulticon}
-                        alt='resulticon'
-                        className=' w-[88px] h-[94px] mx-auto object-cover'
-                    />
-                    <p className=' text-center text-[#000000] mt-[22px] text-[16px] font-poppins font-normal'>Good Job on answering all questions!!</p>
+                <img src={resulticon} alt='resulticon' className='w-[88px] h-[94px] mx-auto object-cover' />
+                <p className='text-center text-[#000000] mt-[22px] text-[16px] font-poppins font-normal'>Good Job on answering all questions!!</p>
                 <div className="flex justify-center mt-[32px]">
-                   
                   <div className="loader spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-dashed border-[#FF8C00]"></div>
                 </div>
                 <p className="text-center mt-4 text-lg">Loading result...</p>
               </>
             ) : (
               <>
-                 <img
-                        src={resulticon}
-                        alt='resulticon'
-                        className=' w-[88px] h-[94px] mx-auto object-cover'
-                    />
+                <img src={resulticon} alt='resulticon' className='w-[88px] h-[94px] mx-auto object-cover' />
                 <h2 className="text-center text-[#000000] mt-[22px] text-[16px] font-poppins font-normal">You got {result.correct} out of {result.total} questions. Great Job!</h2>
                 <div className="mt-4 flex justify-center">
-                  <button
-                    onClick={handleDialogClose}
-                    className="bg-[#FF8C00] text-[#000000] px-4 py-2 rounded-lg"
-                  >
-                    See result
-                  </button>
+                  <button onClick={handleDialogClose} className="bg-[#FF8C00] text-[#000000] px-4 py-2 rounded-lg">See result</button>
                 </div>
               </>
             )}

@@ -6,98 +6,73 @@ import story03 from "./images/story03.png"
 import story04 from "./images/story04.png" 
 import { useQuery } from '@tanstack/react-query' 
 import axios from 'axios';
+import detail from './images/detail.png'
+import useStoryStore from '../../store/useStoryStore';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-
-// generate 6 card data
-const cardData = [
-    {
-        title: 'Story',
-        description: 'Lorem ipsum dolor sit amet consectetur. Venenatis urna phasellus consectetur pulvinar orci.',
-        image: story01,
-        link: '/story'
-    },
-    {
-        title: 'Story 01',
-        description: 'Lorem ipsum dolor sit amet consectetur. Venenatis urna phasellus consectetur pulvinar orci.',
-        image: story02,
-        link: '/story01'
-    },
-    {
-        title: 'Story 02',
-        description: 'Lorem ipsum dolor sit amet consectetur. Venenatis urna phasellus consectetur pulvinar orci.',
-        image: story03,
-        link: '/story02'
-    },
-    {
-        title: 'Story 03',
-        description: 'Lorem ipsum dolor sit amet consectetur. Venenatis urna phasellus consectetur pulvinar orci.',
-        image: story03,
-        link: '/story03'
-    },
-    {
-        title: 'Story 04',
-        description: 'Lorem ipsum dolor sit amet consectetur. Venenatis urna phasellus consectetur pulvinar orci.',
-        image: story01,
-        link: '/story04'
-    },
-    {
-        title: 'Story 05',
-        description: 'Lorem ipsum dolor sit amet consectetur. Venenatis urna phasellus consectetur pulvinar orci.',
-        image: story04,
-        link: '/story05'
-    }
-]
 
 const Story = () => {
-    const fetchStories = async () => {
-        const response = await fetch('https://raj-assistant-api.vercel.app/api/story', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({})
-        });
-        
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        
-        const data = await response.json();
-        return data;
-      };
+    const navigate = useNavigate();
+    const { setStoryData } = useStoryStore();
 
-    const {  isError, isLoading, data, error } = useQuery({
+    const fetchStorie = async () => {
+        const res = await axios.post("https://raj-assistant-api.vercel.app/api/story")
+        return res.data
+    }
+
+    const {  isError, isLoading, data, isPending, error, refetch } = useQuery({
         queryKey: ['stories'],
-        queryFn: fetchStories,
+        queryFn: fetchStorie,
       })
 
-      console.log(data, "from story");
 
-      if (isLoading) {
+      useEffect(() => {
+        if (data) {
+          setStoryData(data); 
+        }
+      }, [data, setStoryData]);
+
+
+      if (isLoading) return (
+        <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-80 backdrop-blur-lg flex flex-col justify-center items-center z-50">
+          <div className="flex justify-center mt-[32px]">
+                  <div className="loader spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-dashed border-[#FF8C00]"></div>
+                </div>
+          <h2 className="text-[#FF8C00] text-2xl font-semibold">Loading Story...</h2>
+          <p className="text-gray-600">Please wait a moment.</p>
+        </div>
+      );
+
+    
+    if (error) return <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col items-center">
+      <p>An error has occured while fetching data</p>
+    </div>
+    </div>;
+
+      if (isPending) {
         return <span>Loading...</span>
       }
-    
-      if (isError) {
-        return <span>Error: {error.message}</span>
-      }
-
+      console.log(data, "data")
+      console.log(data?.story?.join(), "story")
+      const intro = data?.story?.[0];
+      const storyParagraph = data?.story?.join();
+      
+      function refreshPage(){
+        window.location.reload();
+    } 
 
   return (
     <div className='mb-[211px]'>
 
         <div className='relative  overflow-hidden conainer mx-auto mt-[120px] w-[95%] h-[560px] rounded-[32px]'>
-            <img
-            className='h-full w-full object-cover  rounded-[32px]' 
-            src={story}
-            alt='story'
-            />
-            <div className="absolute inset-0 bg-black opacity-60"></div>
-
-            <div className="absolute inset-0 mt-[165px] flex flex-col justifycenter items-center text-white p-b font-poppins">
-            <h2 className="text-[32px] leading-[48px] font-black mb-2">Discover Magical Stories Created by AI</h2>
-            <p className="text-[20px] leading-[30px] mb-2 font-semibold">Discover a world of imaginative tales that teach valuable life lessons</p>
-            <p className='text-[16px] leading-[24px] font-normal'>Join our characters on their exciting adventures and learn about important values like kindness, friendship, and courage</p>
-            </div>
+                <img
+                className='h-full w-full object-cover  rounded-[32px]' 
+                src={detail}
+                alt='story'
+                />
+            
         </div>
 
 
@@ -106,13 +81,43 @@ const Story = () => {
             
             <h2 className='text-[#FF8C00] text-center font-poppins text-[24px] leading-[36px] font-normal'>AI Story Gallery</h2>
 
+
             
+            <div className='mt-[64px] w-[95%] mx-auto'>
+                
+                <div>
+                <h2 className='text-[#1A1A1A] font-poppins text-[24px] leading-[36px] font-normal'>{data.title}</h2>
+                </div>
+                
+                <div className='mt-[28px]'>
+                    <h2 className='text-[#1A1A1A] font-poppins text-[24px] leading-[36px] font-normal'>Introduction</h2>
+                    <p className='mt-[10px] text-justify md:w-[70%] text-[#737373] font-poppins text-[16px] leading-[24px] font-normal'>
+                    {intro}
+                    </p>
+                </div>
 
+                <div className='mt-[20px]'>
+
+                    <p className='mt-[46px] text-justify text-[#737373] font-poppins text-[16px] leading-[24px] font-normal'>
+                    {storyParagraph}
+                    </p>
+
+                </div>
+                <div className="mt-[64px] text-center">
+                <button
+                    className="bg-[#FFA333] rounded-[16px] px-6 py-2 text-[16px] font-medium text-[#202020]"
+                   onClick={() => navigate(`/story/${data?.title}`)} // Navigate to Quiz page
+                >
+                    Take Quiz
+                </button>
+                </div>
+            </div>
+            
             {/* story cards container */}
-            <div className='w-[95%] md:w-[80%] mx-auto justify-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 place-items-center'>
+            {/* <div className='w-[95%] md:w-[80%] mx-auto justify-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 place-items-center'>
 
-            {/* story cards */}
-            {cardData.map((card, index) => (
+       
+            {data.map((card, index) => (
                  <div key={index} class="mt-[43px] max-w-sm rounded-lg dark:border-gray-700">
 
                  <div className='p-5 border-dashed border-2'>
@@ -128,17 +133,21 @@ const Story = () => {
                      <p className="mt-[14px] font-normal text-[#737373] text-[16px] leading-[24px]">{card.description}</p>
 
 
-                     <a href="/story/detail" className="inline-flex mt-[24px] bg-[#FFA333] rounded-[16px] items-center px-6 py-2  text-[16px] leading-[24px] font-medium text-center text-[#202020]">
+                     <a href={`/story/${index}`} className="inline-flex mt-[24px] bg-[#FFA333] rounded-[16px] items-center px-6 py-2  text-[16px] leading-[24px] font-medium text-center text-[#202020]">
                          Read
                      </a>
              </div>
          </div>
             ))}
-            
-            <a href='/story'>
+            */}
+           
+        <div className="w-[95%] mx-auto">
+        <button
+                onClick={refreshPage}
+            >
             <h2 className='text-[#5f5d5d] mt-[102px] font-poppins text-[24px] leading-[36px] font-semibold'>Re-generate new sets of stories</h2>
-            </a>
-            </div>
+            </button>
+        </div>
         </div>
 
     </div>
