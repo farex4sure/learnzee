@@ -11,55 +11,14 @@ import welcomeVideoBg from '../images/welcomeVideoBg.png';
 import lego from '../images/lego.jpeg';
 import stem from '../images/stem.jpg';
 import last from '../images/last.jpg';
-import slide1 from '../images/slide1.jpg';
-import slide2 from '../images/slide2.jpg';
-import slide3 from '../images/slide3.jpg';
 import children from '../images/children.jpg';
-import second1 from '../images/second1.jpg';
-import second2 from '../images/second2.jpg';
-import second3 from '../images/second3.jpg';
+import Slider from './Slider';
 
 const Hero = () => {
   return (
     <div className='border-t-2 md:border-none rounded-t-xl pt-5 px-2 sm:px-3'>
         <section className="w-full pb-8">
-
-            <div className='w-full relative my-4 md:my-8'>
-                <div id="carouselExampleCaptions" className="carousel slide relative" data-bs-ride="carousel">
-                    <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-label="Slide 1" ></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" className="active" aria-label="Slide 2" ></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" className="active" aria-label="Slide 3" ></button>
-                    </div>
-
-                    <div className=" rounded-[32px] carousel-inner relative w-full overflow-hidden">
-
-                        <div className="h-full max-h-[400px] carousel-item relative float-left w-full">
-                            <img src={slide3} className="block w-full object-cover hidden lg:block" alt="..." />
-                            <img src={second3} className="block w-full h-full object-cover lg:hidden" alt="..." />
-                            <div className="hidden flex flex-col lg:flex-row lg:px-8 carousel-caption absolute text-green-500 left-0 top-0 bg-gray-100 bg-opacity-25 w-full">
-                                <div className="w-full lg:w-2/3 h-full flex flex-col lg:flex-row">
-                                    <div className="flex flex-col items-center gap-y-4 md:gap-y-6 p-2">
-                                        <h5 className="text-xl md:2xl lg:text-6xl">Learncha</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button className=" carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" >
-                        <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-
-                    <button className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                        <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button>
-
-                </div>
-            </div>
-
+                <Slider />
             <div className="slider-wrap flex flex-col justify-center items-center gap-4">
                 <ul className="slider grid gap-4 md:gap-8 lg:gap-10 max-w-6xl">
                     <li className='flex flex-col md:flex-row px-2 rounded-2xl overflow-hidden'>
@@ -132,14 +91,16 @@ const Hero = () => {
                     
                 </ul>
             </div>
+
         </section>
         <div class="dvdr"></div>
         <section id="main">
+
             <div class="widget-boxes w-full grid md:grid-cols-2 xl:grid-cols-3 gap-5 place-items-center">
                 <div class="box">
                     <a href="#">
                         <div class="box-info experience">
-                            <h2>Our experience</h2>
+                            <h2 className=' font-poppins'>Our experience</h2>
                             <p className='text-justify'>Help your child discover their passion for <span className='font-semibold'>STEM</span>
                                 (<span className='font-semibold italic'>Science, Technology, Engineering and Mathematics</span>)
                                 with our engaging offline and online gamifying platform.
@@ -218,7 +179,8 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
-        </section>
+        </section> 
+
     </div>
   )
 }

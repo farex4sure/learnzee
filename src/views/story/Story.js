@@ -3,7 +3,9 @@ import story from "./images/story.png"
 import story01 from "./images/story01.png"
 import story02 from "./images/story02.png"
 import story03 from "./images/story03.png"  
-import story04 from "./images/story04.png"  
+import story04 from "./images/story04.png" 
+import { useQuery } from '@tanstack/react-query' 
+import axios from 'axios';
 
 
 // generate 6 card data
@@ -47,6 +49,39 @@ const cardData = [
 ]
 
 const Story = () => {
+    const fetchStories = async () => {
+        const response = await fetch('https://raj-assistant-api.vercel.app/api/story', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({})
+        });
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        
+        const data = await response.json();
+        return data;
+      };
+
+    const {  isError, isLoading, data, error } = useQuery({
+        queryKey: ['stories'],
+        queryFn: fetchStories,
+      })
+
+      console.log(data, "from story");
+
+      if (isLoading) {
+        return <span>Loading...</span>
+      }
+    
+      if (isError) {
+        return <span>Error: {error.message}</span>
+      }
+
+
   return (
     <div className='mb-[211px]'>
 
