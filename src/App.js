@@ -92,8 +92,8 @@ function App() {
 						{/* Games Routes */}
 						<Route path="/diy" element={<DIY />} />
 						<Route path="/story" element={<Story />} />
-						<Route path="/story/detail" element={<StoryDetail />} />
-						<Route path="/quiz" element={<Quiz />} />
+						{/* <Route path="/story/:id" element={<StoryDetail />} /> */}
+						<Route path="/story/:id" element={<Quiz />} />
 					</Routes>
 				</div>
 				

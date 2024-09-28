@@ -1,0 +1,44 @@
+  const fetchStories = async () => {
+        const storyPromises = Array.from({ length: 6 }).map(() => 
+            axios.post('https://raj-assistant-api.vercel.app/api/story')
+        );
+        const responses = await Promise.all(storyPromises);
+        const stories = responses.map(response => response.data)
+
+        console.log(stories, "stories")
+
+        const imagePromises = stories.map(story =>
+        {
+            console.log(story.image_prompt, "image prompt")
+            axios.post('https://raj-assistant-api.vercel.app/api/story/image', {
+                prompt: story.image_prompt,
+            })
+    });
+
+        const imageResponses = await Promise.all(imagePromises);
+        const storiesWithImages = stories.map((story, index) => ({
+            ...story,
+            image: imageResponses[index].data.image,
+        }));
+        return storiesWithImages;
+    }; 
+
+    const {  isError, isLoading, data, error, refetch } = useQuery({
+        queryKey: ['stories'],
+        queryFn: fetchStories,
+      })
+
+    //   useEffect(() => {
+    //     if (data) {
+    //         console.log(data, "from story useEffect")
+    //         setStories(data)
+    //     }
+    //   }, [data, setStories])
+
+      if (isLoading) {
+        return <span>Loading...</span>
+      }
+    
+      if (isError) {
+        return <span>Error: {error.message}</span>
+      }
