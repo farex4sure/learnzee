@@ -28,6 +28,7 @@ import DIY from './views/diy/DIY';
 import ClimateLogout from './views/climate/ClimateLogout';
 import Story from './views/story/Story';
 import StoryDetail from './views/story/StoryDetail';
+import Quiz from './views/story/Quiz';
 
 function App() {
 	useEffect(() => {
@@ -92,6 +93,7 @@ function App() {
 						<Route path="/diy" element={<DIY />} />
 						<Route path="/story" element={<Story />} />
 						<Route path="/story/detail" element={<StoryDetail />} />
+						<Route path="/quiz" element={<Quiz />} />
 					</Routes>
 				</div>
 				
