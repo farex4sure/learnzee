@@ -34,7 +34,7 @@ const Story = () => {
       }, [data, setStoryData]);
 
 
-      if (isLoading) return (
+      if (isLoading | data===undefined) return (
         <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-80 backdrop-blur-lg flex flex-col justify-center items-center z-50">
           <div className="flex justify-center mt-[32px]">
                   <div className="loader spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-dashed border-[#FF8C00]"></div>

@@ -10,10 +10,20 @@ const Quiz = () => {
   const [quizCompleted, setQuizCompleted] = useState(false); 
   const [result, setResult] = useState(null); 
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
+  console.log(storyData.quiz.length);
 
   // Function to handle answer selection
   const handleAnswerChange = (questionIndex, answerValue) => {
-    setSelectedAnswers(prev => ({ ...prev, [questionIndex]: answerValue }));
+    setSelectedAnswers(prev => {
+      const updatedAnswers = { ...prev, [questionIndex]: answerValue };
+      
+      // Check if all questions have been answered
+      const allAnswered = storyData.quiz.every((_, index) => updatedAnswers[index] !== undefined);
+      setAllQuestionsAnswered(allAnswered);
+
+      return updatedAnswers;
+    });
   };
 
   // Function to handle form submission and display result
@@ -100,7 +110,8 @@ const Quiz = () => {
               {!quizCompleted ? (
                 <button
                   onClick={handleSubmit}
-                  className="inline-flex mt-[24px] bg-[#FF8C00] rounded-[16px] items-center px-6 py-2 text-[16px] leading-[24px] font-medium text-center text-[#202020]"
+                  disabled={!allQuestionsAnswered}
+                  className={`inline-flex mt-[24px] px-6 py-2 text-[16px] leading-[24px] font-medium text-center rounded-[16px] items-center ${allQuestionsAnswered ? 'bg-[#FF8C00] text-[#202020]' : 'bg-gray-300 text-gray-600 cursor-not-allowed'}`}
                 >
                   Submit
                 </button>

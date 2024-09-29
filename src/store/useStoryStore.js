@@ -1,8 +1,17 @@
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware'
 
-const useStoryStore = create((set) => ({
-  storyData: null, // Initially, there is no story data
-  setStoryData: (data) => set({ storyData: data }), // Method to set the story data
-}));
+const useStoryStore = create(
+  persist(
+    (set) => ({
+      storyData: null,
+      setStoryData: (data) => set({ storyData: data }),
+    }),
+    {
+      name: 'story-data',
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+  )
 
 export default useStoryStore;
