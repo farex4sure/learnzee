@@ -16,8 +16,8 @@ import Slider from './Slider';
 
 const Hero = () => {
   return (
-    <div className='border-t-2 md:border-none rounded-t-xl pt-5 px-2 sm:px-3'>
-        <section className="w-full pb-8">
+    <div className='md:border-t-2 md:border-none rounded-t-xl pt-5 px-2 sm:px-3'>
+        <section className="w-full pt-0 pb-8">
                 <Slider />
             <div className="slider-wrap flex flex-col justify-center items-center gap-4">
                 <ul className="slider grid gap-4 md:gap-8 lg:gap-10 max-w-6xl">

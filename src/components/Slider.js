@@ -34,10 +34,10 @@ const Slider = () => {
         disableOnInteraction: false,
       }}
       navigation={true}
-      className="mySwiper w[92%] h[500px] mb-10"
+      className="mySwiper w[92%] h[400px] mb-10"
     >
       <SwiperSlide >
-      <div className='relative w-full  overflow-hidden conainer mx-auto rounded-[32px]'>
+      <div className='relative w-full overflow-hidden conainer mx-auto rounded-[32px]'>
             <img
             className='h-full w-full object-cover  rounded-[32px]' 
             src={story}
