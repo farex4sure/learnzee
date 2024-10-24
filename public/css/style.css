@@ -422,7 +422,7 @@ input.white[type='submit']:hover {
 	position: absolute;
 	top: 28px;
 	left: 50%;
-	background: url(../images/logo.png) no-repeat;
+	/* background: url(../images/learnzee.png) no-repeat; */
 }
 #logo:hover {
 	text-decoration: none;
@@ -451,6 +451,11 @@ input.white[type='submit']:hover {
 #nav ul {
 	margin: 0 auto;
 	text-align: center;
+}
+#nv ul li {
+	color: #A35A00;
+	padding: 5px 0;
+	font-size: 18px;
 }
 #nav ul li {
 	display: inline-block;
@@ -1458,7 +1463,7 @@ input.white[type='submit']:hover {
 		margin: 0 auto;
 	}
 	#header {
-		padding: 170px 0 0;
+		padding: 50px 0 0;
 		margin-bottom: 10px;
 	}
 	.slide-info {
@@ -1724,7 +1729,7 @@ input.white[type='submit']:hover {
 		width: 142px;
 		height: 60px;
 		padding-top: 72px;
-		background: url(../images/logo-x2.png) no-repeat;
+		/* background: url(../images/learnzee.png) no-repeat; */
 		background-size: 142px 132px;
 	}
 	a.red {

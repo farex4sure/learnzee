@@ -16,8 +16,8 @@ import Slider from './Slider';
 
 const Hero = () => {
   return (
-    <div className='border-t-2 md:border-none rounded-t-xl pt-5 px-2 sm:px-3'>
-        <section className="w-full pb-8">
+    <div className='md:border-t-2 md:border-none rounded-t-xl pt-5 px-2 sm:px-3'>
+        <section className="w-full pt-0 pb-8">
                 <Slider />
             <div className="slider-wrap flex flex-col justify-center items-center gap-4">
                 <ul className="slider grid gap-4 md:gap-8 lg:gap-10 max-w-6xl">
@@ -26,7 +26,7 @@ const Hero = () => {
                             <div className='flex text-center h-full w-full'>
                                 <div className="text-[#FF8C00] text-3xl mb-6"><i class="fa-solid fa-quote-left"></i></div>
                                     <p style={{fontFamily: 'Gochi Hand'}} data-aos="zoom-in" data-aos-duration="3000" className='animate animate-pulse w-full text-white text-xs md:text-2xl font-bold text-gray-500 text-center mb-6 px-2'>
-                                        Learning can be creative and fun, With learncha learning can become more than creative and fun
+                                        Learning can be creative and fun, With learnzee learning can become more than creative and fun
                                     </p>
                                 <div className="text-[#FF8C00] text-3xl mb-6"><i class="fa-solid fa-quote-right"></i></div>
                             </div>
@@ -81,8 +81,8 @@ const Hero = () => {
                         <div className="h-full w-full">
                             <div className='flex flex-col items-center justify-center h-full w-full px-8 gap-4'>
                                 <h1><Link href="/games" className='animate animate-pulse text-center w-full flex text-[#FF8C00] md:text-3xl text-lg font-bold'>Climate Challenge</Link></h1>
-                                <p className='text-justify text-white text-gray-600 text-center mb-6 md:text-xl'>
-                                Learn about climate and join the climate challenge today and help fight climatic degredation and become a learncha ambassador
+                                <p className=' text-gray-600 text-center mb-6 md:text-xl'>
+                                Learn about climate and join the climate challenge today and help fight climatic degredation and become a learnzee ambassador
                                 </p>
                                 <a className="btn bg-[#FF8C00] font-poppins text-[#202020] rounded-[16px]"><Link to='/climate'>Learn more</Link></a>
                             </div>
@@ -111,8 +111,8 @@ const Hero = () => {
                 <div class="box">
                     <a href="#">
                         <div class="box-info about">
-                            <h2>About Learncha</h2>
-                            <p className='text-justify'>Learncha is a educational Gamifying Paltform designed for kids that helps to instill the love of learning in a child.
+                            <h2>About Learnzee</h2>
+                            <p className='text-justify'>Learnzee is a educational Gamifying Paltform designed for kids that helps to instill the love of learning in a child.
                                 This applies whether they've learning through homeschooling, online learning, offline traditional classroom setting...
                             </p>
                         </div>
