@@ -46,7 +46,7 @@ const Slider = () => {
             <div className="absolute inset-0 bg-black opacity-60"></div>
 
             <div className="absolute inset-0 mt-[90px] flex flex-col justifycenter items-center text-white p-b font-poppins">
-            <h2 className="text-[32px] leading-[48px] font-black mb-1">Discover a World of Fun and Learning</h2>
+            <h2 className="text-[22px] md:text-[32px] leading-[48px] font-black mb-1">Discover a World of Fun and Learning</h2>
             <p className="text-[16px] leading-[24px] font-normal">Join us on a fun and educational journey. Explore exciting topics, play</p>
             <p className='text-[16px] leading-[24px] font-normal'>interactive games, and develop essential skills</p>
             </div>
@@ -62,7 +62,7 @@ const Slider = () => {
             <div className="absolute inset-0 bg-black opacity-60"></div>
 
             <div className="absolute inset-0 mt-[90px] flex flex-col justifycenter items-center text-white p-b font-poppins">
-            <h2 className="text-[32px] leading-[48px] font-black mb-1">Discover a World of Fun and Learning</h2>
+            <h2 className="text-[22px] md:text-[32px] leading-[48px] font-black mb-1">Discover a World of Fun and Learning</h2>
             <p className="text-[16px] leading-[24px] font-normal">Join us on a fun and educational journey. Explore exciting topics, play</p>
             <p className='text-[16px] leading-[24px] font-normal'>interactive games, and develop essential skills</p>
             </div>
@@ -78,7 +78,7 @@ const Slider = () => {
             <div className="absolute inset-0 bg-black opacity-60"></div>
 
             <div className="absolute inset-0 mt-[90px] flex flex-col justifycenter items-center text-white p-b font-poppins">
-            <h2 className="text-[32px] leading-[48px] font-black mb-1">Discover a World of Fun and Learning</h2>
+            <h2 className="text-[22px] md:text-[32px] leading-[48px] font-black mb-1">Discover a World of Fun and Learning</h2>
             <p className="text-[16px] leading-[24px] font-normal">Join us on a fun and educational journey. Explore exciting topics, play</p>
             <p className='text-[16px] leading-[24px] font-normal'>interactive games, and develop essential skills</p>
             </div>

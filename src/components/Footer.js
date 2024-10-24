@@ -8,7 +8,7 @@ const Footer = ({ id }) => {
 				<div className="footer-frame">
 					<div className="flex justify-center w-full">
 						<div className="text-center text-white font-bold p-6">
-							<p>Copyright {year} Learncha. All rights reserved.</p>
+							<p>Copyright {year} Learnzee. All rights reserved.</p>
 						</div>
 					</div>
 				</div>
