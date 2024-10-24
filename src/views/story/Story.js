@@ -18,8 +18,8 @@ const Story = () => {
 
     const fetchStorie = async () => {
 
-        // const res = await axios.post("https://raj-assistant-api.vercel.app/api/story")
-        const res = await axios.post("https://watsonx-ai-api.onrender.com/generate-story")
+        const res = await axios.post("https://raj-assistant-api.vercel.app/api/story")
+        // const res = await axios.post("https://watsonx-ai-api.onrender.com/generate-story")
         return res.data
     }
 
@@ -57,6 +57,7 @@ const Story = () => {
         return <span>Loading...</span>
       }
       console.log(data, "data")
+      // console.log
       console.log(data?.story?.join(), "story")
       const intro = data?.story?.[0];
       const storyParagraph = data?.story?.join();
