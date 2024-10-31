@@ -12,6 +12,7 @@ const Quiz = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
   console.log(storyData.quiz.length);
+  console.log(storyData);
 
   // Function to handle answer selection
   const handleAnswerChange = (questionIndex, answerValue) => {

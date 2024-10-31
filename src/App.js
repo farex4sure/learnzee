@@ -26,7 +26,7 @@ import ClimateChallenge from './views/climate/ClimateChallenge';
 import SingleChallenge from './views/climate/SingleChallenge';
 import DIY from './views/diy/DIY';
 import ClimateLogout from './views/climate/ClimateLogout';
-import Story from './views/story/Story';
+import Story from "./views/story/Story"
 import StoryDetail from './views/story/StoryDetail';
 import Quiz from './views/story/Quiz';
 
